@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PosTest</string>
+
+    <string name="ok">ตกลง</string>
+    <string name="cancel">ยกเลิก</string>
+    <string name="save">บันทึก</string>
+    <string name="delete">ลบ</string>
+    <string name="edit">แก้ไข</string>
+    <string name="add">เพิ่ม</string>
+    <string name="confirm">ยืนยัน</string>
+    <string name="back">ย้อนกลับ</string>
+    <string name="search">ค้นหา</string>
+    <string name="loading">กำลังโหลด…</string>
+    <string name="empty">ยังไม่มีข้อมูล</string>
+    <string name="yes">ใช่</string>
+    <string name="no">ไม่</string>
+    <string name="amount">จำนวนเงิน</string>
+    <string name="total">รวมทั้งหมด</string>
+    <string name="subtotal">ยอดรวม</string>
+    <string name="tax">ภาษี</string>
+    <string name="qty">จำนวน</string>
+
+    <string name="login_select_user">เลือกผู้ใช้</string>
+    <string name="login_pin_prompt">กรอกรหัส PIN</string>
+    <string name="login_wrong_pin">รหัส PIN ไม่ถูกต้อง</string>
+    <string name="login_locked">ลองหลายครั้งเกินไป — รอ %1$d วินาที</string>
+    <string name="logout">ออกจากระบบ</string>
+    <string name="switch_user">สลับผู้ใช้</string>
+    <string name="manager_override_title">ต้องได้รับอนุมัติจากผู้จัดการ</string>
+    <string name="manager_override_msg">ผู้จัดการต้องอนุมัติการกระทำนี้</string>
+    <string name="default_owner_warning">รหัส OWNER เริ่มต้นคือ 0000 — กรุณาเปลี่ยนในเมนูตั้งค่า</string>
+
+    <string name="role_owner">เจ้าของ</string>
+    <string name="role_manager">ผู้จัดการ</string>
+    <string name="role_cashier">แคชเชียร์</string>
+
+    <string name="pos_title">ขายหน้าร้าน</string>
+    <string name="cart">ตะกร้า</string>
+    <string name="cart_empty">ตะกร้าว่าง</string>
+    <string name="checkout">ชำระเงิน</string>
+    <string name="clear_cart">ล้างตะกร้า</string>
+    <string name="no_open_shift">ยังไม่ได้เปิดกะ — กรุณาเปิดกะก่อนขาย</string>
+    <string name="open_shift_button">เปิดกะ</string>
+    <string name="mode_restaurant">ร้านอาหาร</string>
+    <string name="mode_retail">ค้าปลีก</string>
+
+    <string name="tables_title">โต๊ะ</string>
+    <string name="table_free">ว่าง</string>
+    <string name="table_occupied">มีลูกค้า</string>
+    <string name="send_to_kitchen">ส่งครัว</string>
+
+    <string name="pay_cash">เงินสด</string>
+    <string name="pay_promptpay">พร้อมเพย์</string>
+    <string name="tendered">รับเงิน</string>
+    <string name="change">เงินทอน</string>
+    <string name="mark_paid">ทำเครื่องหมายชำระแล้ว</string>
+    <string name="print_receipt">พิมพ์ใบเสร็จ</string>
+    <string name="receipt_preview">ตัวอย่างใบเสร็จ</string>
+    <string name="payment_complete">ชำระเงินเรียบร้อย</string>
+    <string name="scan_to_pay">สแกนด้วยแอปธนาคารเพื่อชำระ</string>
+
+    <string name="menu_title">เมนู</string>
+    <string name="categories">หมวดหมู่</string>
+    <string name="products">สินค้า</string>
+    <string name="new_category">หมวดหมู่ใหม่</string>
+    <string name="new_product">สินค้าใหม่</string>
+    <string name="name_en">ชื่อ (อังกฤษ)</string>
+    <string name="name_th">ชื่อ (ไทย)</string>
+    <string name="price">ราคา</string>
+    <string name="kitchen_print">พิมพ์ที่ครัว</string>
+
+    <string name="settings_title">ตั้งค่า</string>
+    <string name="settings_general">ทั่วไป</string>
+    <string name="settings_mode">โหมด</string>
+    <string name="settings_language">ภาษา</string>
+    <string name="settings_tax">ภาษี %</string>
+    <string name="settings_promptpay">หมายเลขพร้อมเพย์ (เบอร์มือถือ/บัตรประชาชน)</string>
+    <string name="settings_shop_name">ชื่อร้าน</string>
+    <string name="settings_shop_address">ที่อยู่ร้าน</string>
+    <string name="settings_printers">เครื่องพิมพ์</string>
+    <string name="settings_star_ip">IP เครื่องพิมพ์ Star LAN</string>
+    <string name="settings_bt_printer">เครื่องพิมพ์ Bluetooth</string>
+    <string name="settings_bt_choose">เลือกอุปกรณ์ที่จับคู่ไว้</string>
+    <string name="settings_assign_receipt">เครื่องพิมพ์ใบเสร็จ</string>
+    <string name="settings_assign_kitchen">เครื่องพิมพ์ครัว</string>
+    <string name="settings_test_print">ทดสอบพิมพ์</string>
+    <string name="settings_idle_lock">ล็อกอัตโนมัติหลัง (นาที)</string>
+    <string name="settings_change_pin">เปลี่ยน PIN</string>
+    <string name="lang_en">English</string>
+    <string name="lang_th">ไทย</string>
+
+    <string name="shift_title">กะ</string>
+    <string name="shift_open">เปิดกะ</string>
+    <string name="shift_close">ปิดกะ</string>
+    <string name="shift_opening_cash">เงินสดเริ่มต้น</string>
+    <string name="shift_counted_cash">เงินสดที่นับได้</string>
+    <string name="shift_expected_cash">เงินสดที่คาดไว้</string>
+    <string name="shift_over_short">เกิน / ขาด</string>
+    <string name="shift_x_report">รายงาน X (กะปัจจุบัน)</string>
+    <string name="shift_z_report">รายงาน Z (กะที่ปิดแล้ว)</string>
+    <string name="shift_history">ประวัติกะ</string>
+    <string name="shift_open_orders_warning">มีบิลที่ยังเปิดอยู่ — จะถูกย้ายไปกะถัดไป</string>
+
+    <string name="report_title">รายงาน</string>
+    <string name="report_today">วันนี้</string>
+    <string name="report_range">ช่วงวันที่</string>
+    <string name="report_by_payment">ตามวิธีชำระเงิน</string>
+    <string name="report_by_category">ตามหมวดหมู่</string>
+    <string name="report_by_user">ตามผู้ใช้</string>
+    <string name="report_export_csv">ส่งออก CSV</string>
+
+    <string name="users_title">ผู้ใช้</string>
+    <string name="users_new">เพิ่มผู้ใช้</string>
+    <string name="users_active">ใช้งานอยู่</string>
+    <string name="users_role">บทบาท</string>
+    <string name="users_reset_pin">รีเซ็ต PIN</string>
+
+    <string name="audit_title">บันทึกการตรวจสอบ</string>
+
+    <string name="err_no_permission">คุณไม่มีสิทธิ์ทำรายการนี้</string>
+    <string name="err_print_failed">พิมพ์ไม่สำเร็จ: %1$s</string>
+    <string name="err_no_printer">ไม่ได้ตั้งค่าเครื่องพิมพ์ %1$s</string>
+</resources>
