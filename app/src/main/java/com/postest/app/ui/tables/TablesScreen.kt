@@ -65,7 +65,7 @@ fun TablesScreen(nav: NavController, vm: TablesViewModel = hiltViewModel()) {
         LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 140.dp), modifier = Modifier.padding(pad).padding(12.dp)) {
             items(tables) { t ->
                 ElevatedCard(
-                    modifier = Modifier.padding(8.dp).size(140.dp, 100.dp),
+                    modifier = Modifier.padding(8.dp).heightIn(min = 100.dp).fillMaxWidth(),
                     onClick = {
                         scope.launch {
                             val orderId = vm.openOrCreateOrderForTable(t)

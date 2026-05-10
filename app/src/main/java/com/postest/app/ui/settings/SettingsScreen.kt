@@ -75,7 +75,7 @@ class SettingsViewModel @Inject constructor(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun SettingsScreen(nav: NavController, vm: SettingsViewModel = hiltViewModel()) {
     val s by vm.settings.collectAsState()
@@ -92,21 +92,18 @@ fun SettingsScreen(nav: NavController, vm: SettingsViewModel = hiltViewModel()) 
         Column(Modifier.padding(pad).padding(16.dp).verticalScroll(rememberScrollState())) {
 
             SectionTitle("General")
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Mode:")
-                Spacer(Modifier.width(8.dp))
-                FilterChip(selected = s.mode == PosMode.RETAIL, onClick = { vm.update { it.copy(mode = PosMode.RETAIL) } }, label = { Text("Retail") })
-                Spacer(Modifier.width(8.dp))
+            Text("Mode:")
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                FilterChip(selected = s.mode == PosMode.RETAIL,     onClick = { vm.update { it.copy(mode = PosMode.RETAIL) } },     label = { Text("Retail") })
                 FilterChip(selected = s.mode == PosMode.RESTAURANT, onClick = { vm.update { it.copy(mode = PosMode.RESTAURANT) } }, label = { Text("Restaurant") })
             }
             Spacer(Modifier.height(12.dp))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Language:"); Spacer(Modifier.width(8.dp))
+            Text("Language:")
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 FilterChip(selected = s.language == "en", onClick = {
                     vm.update { it.copy(language = "en") }
                     AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en"))
                 }, label = { Text("English") })
-                Spacer(Modifier.width(8.dp))
                 FilterChip(selected = s.language == "th", onClick = {
                     vm.update { it.copy(language = "th") }
                     AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("th"))
@@ -167,25 +164,20 @@ fun SettingsScreen(nav: NavController, vm: SettingsViewModel = hiltViewModel()) 
 
             Spacer(Modifier.height(8.dp))
             Text("Receipt printer:")
-            Row {
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 FilterChip(selected = s.receiptPrinterTarget == "STAR", onClick = { vm.update { it.copy(receiptPrinterTarget = "STAR") } }, label = { Text("Star LAN") })
-                Spacer(Modifier.width(8.dp))
-                FilterChip(selected = s.receiptPrinterTarget == "BT", onClick = { vm.update { it.copy(receiptPrinterTarget = "BT") } }, label = { Text("Bluetooth") })
-                Spacer(Modifier.width(8.dp))
+                FilterChip(selected = s.receiptPrinterTarget == "BT",   onClick = { vm.update { it.copy(receiptPrinterTarget = "BT") } },   label = { Text("Bluetooth") })
                 FilterChip(selected = s.receiptPrinterTarget == "NONE", onClick = { vm.update { it.copy(receiptPrinterTarget = "NONE") } }, label = { Text("None") })
             }
             Text("Kitchen printer:")
-            Row {
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 FilterChip(selected = s.kitchenPrinterTarget == "STAR", onClick = { vm.update { it.copy(kitchenPrinterTarget = "STAR") } }, label = { Text("Star LAN") })
-                Spacer(Modifier.width(8.dp))
-                FilterChip(selected = s.kitchenPrinterTarget == "BT", onClick = { vm.update { it.copy(kitchenPrinterTarget = "BT") } }, label = { Text("Bluetooth") })
-                Spacer(Modifier.width(8.dp))
+                FilterChip(selected = s.kitchenPrinterTarget == "BT",   onClick = { vm.update { it.copy(kitchenPrinterTarget = "BT") } },   label = { Text("Bluetooth") })
                 FilterChip(selected = s.kitchenPrinterTarget == "NONE", onClick = { vm.update { it.copy(kitchenPrinterTarget = "NONE") } }, label = { Text("None") })
             }
             Spacer(Modifier.height(8.dp))
-            Row {
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Button(onClick = { vm.testReceipt() }) { Text("Test receipt printer") }
-                Spacer(Modifier.width(8.dp))
                 Button(onClick = { vm.testKitchen() }) { Text("Test kitchen printer") }
             }
 

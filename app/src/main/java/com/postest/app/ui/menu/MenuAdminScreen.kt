@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import com.postest.app.data.entity.Category
 import com.postest.app.data.entity.Product
 import com.postest.app.data.repo.CatalogRepo
+import com.postest.app.ui.common.Responsive
 import com.postest.app.util.Money
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -48,58 +49,45 @@ fun MenuAdminScreen(nav: NavController, vm: MenuAdminViewModel = hiltViewModel()
     var editingCategory by remember { mutableStateOf<Category?>(null) }
     var editingProduct by remember { mutableStateOf<Product?>(null) }
 
+    val compact = Responsive.isCompact
+
     Scaffold(topBar = {
         TopAppBar(
             title = { Text("Menu") },
             navigationIcon = { IconButton(onClick = { nav.popBackStack() }) { Icon(Icons.Filled.ArrowBack, null) } },
         )
     }) { pad ->
-        Row(Modifier.padding(pad).fillMaxSize().padding(12.dp)) {
-            Column(Modifier.weight(1f).padding(end = 12.dp)) {
-                Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-                    Text("Categories", style = MaterialTheme.typography.titleMedium)
-                    Spacer(Modifier.weight(1f))
-                    Button(onClick = { editingCategory = Category(nameEn = "", nameTh = "") }) { Text("New") }
-                }
-                LazyColumn {
-                    items(cats) { c ->
-                        ListItem(
-                            headlineContent = { Text(c.nameEn) },
-                            supportingContent = { Text(c.nameTh) },
-                            trailingContent = {
-                                Row {
-                                    TextButton(onClick = { editingCategory = c }) { Text("Edit") }
-                                    TextButton(onClick = { vm.deleteCategory(c) }) { Text("Delete") }
-                                }
-                            },
-                        )
-                    }
-                }
+        if (compact) {
+            Column(Modifier.padding(pad).fillMaxSize().padding(12.dp)) {
+                CategoriesPane(cats,
+                    onNew = { editingCategory = Category(nameEn = "", nameTh = "") },
+                    onEdit = { editingCategory = it },
+                    onDelete = { vm.deleteCategory(it) },
+                    modifier = Modifier.weight(1f),
+                )
+                HorizontalDivider(Modifier.padding(vertical = 8.dp))
+                ProductsPane(cats, prods,
+                    onNew = { editingProduct = Product(categoryId = cats.first().id, nameEn = "", nameTh = "", priceCents = 0) },
+                    onEdit = { editingProduct = it },
+                    onDelete = { vm.deleteProduct(it) },
+                    modifier = Modifier.weight(2f),
+                )
             }
-            VerticalDivider()
-            Column(Modifier.weight(2f).padding(start = 12.dp)) {
-                Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-                    Text("Products", style = MaterialTheme.typography.titleMedium)
-                    Spacer(Modifier.weight(1f))
-                    Button(
-                        enabled = cats.isNotEmpty(),
-                        onClick = { editingProduct = Product(categoryId = cats.first().id, nameEn = "", nameTh = "", priceCents = 0) },
-                    ) { Text("New") }
-                }
-                LazyColumn {
-                    items(prods) { p ->
-                        ListItem(
-                            headlineContent = { Text(p.nameEn) },
-                            supportingContent = { Text("${p.nameTh}  ·  ${Money.fmt(p.priceCents)}${if (p.kitchenPrint) "  ·  kitchen" else ""}") },
-                            trailingContent = {
-                                Row {
-                                    TextButton(onClick = { editingProduct = p }) { Text("Edit") }
-                                    TextButton(onClick = { vm.deleteProduct(p) }) { Text("Delete") }
-                                }
-                            },
-                        )
-                    }
-                }
+        } else {
+            Row(Modifier.padding(pad).fillMaxSize().padding(12.dp)) {
+                CategoriesPane(cats,
+                    onNew = { editingCategory = Category(nameEn = "", nameTh = "") },
+                    onEdit = { editingCategory = it },
+                    onDelete = { vm.deleteCategory(it) },
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
+                )
+                VerticalDivider()
+                ProductsPane(cats, prods,
+                    onNew = { editingProduct = Product(categoryId = cats.first().id, nameEn = "", nameTh = "", priceCents = 0) },
+                    onEdit = { editingProduct = it },
+                    onDelete = { vm.deleteProduct(it) },
+                    modifier = Modifier.weight(2f).padding(start = 12.dp),
+                )
             }
         }
     }
@@ -109,6 +97,69 @@ fun MenuAdminScreen(nav: NavController, vm: MenuAdminViewModel = hiltViewModel()
     }
     if (editingProduct != null) {
         ProductEditDialog(editingProduct!!, cats, onSave = { vm.saveProduct(it); editingProduct = null }, onDismiss = { editingProduct = null })
+    }
+}
+
+@Composable
+private fun CategoriesPane(
+    cats: List<Category>,
+    onNew: () -> Unit,
+    onEdit: (Category) -> Unit,
+    onDelete: (Category) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier) {
+        Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+            Text("Categories", style = MaterialTheme.typography.titleMedium)
+            Spacer(Modifier.weight(1f))
+            Button(onClick = onNew) { Text("New") }
+        }
+        LazyColumn {
+            items(cats) { c ->
+                ListItem(
+                    headlineContent = { Text(c.nameEn) },
+                    supportingContent = { Text(c.nameTh) },
+                    trailingContent = {
+                        Row {
+                            TextButton(onClick = { onEdit(c) }) { Text("Edit") }
+                            TextButton(onClick = { onDelete(c) }) { Text("Delete") }
+                        }
+                    },
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ProductsPane(
+    cats: List<Category>,
+    prods: List<Product>,
+    onNew: () -> Unit,
+    onEdit: (Product) -> Unit,
+    onDelete: (Product) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier) {
+        Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+            Text("Products", style = MaterialTheme.typography.titleMedium)
+            Spacer(Modifier.weight(1f))
+            Button(enabled = cats.isNotEmpty(), onClick = onNew) { Text("New") }
+        }
+        LazyColumn {
+            items(prods) { p ->
+                ListItem(
+                    headlineContent = { Text(p.nameEn) },
+                    supportingContent = { Text("${p.nameTh}  ·  ${Money.fmt(p.priceCents)}${if (p.kitchenPrint) "  ·  kitchen" else ""}") },
+                    trailingContent = {
+                        Row {
+                            TextButton(onClick = { onEdit(p) }) { Text("Edit") }
+                            TextButton(onClick = { onDelete(p) }) { Text("Delete") }
+                        }
+                    },
+                )
+            }
+        }
     }
 }
 

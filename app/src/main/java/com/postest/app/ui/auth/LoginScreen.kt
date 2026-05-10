@@ -71,7 +71,7 @@ fun LoginScreen(
                     LazyVerticalGrid(columns = GridCells.Adaptive(minSize = 160.dp)) {
                         items(users) { u ->
                             ElevatedCard(
-                                modifier = Modifier.padding(8.dp).size(160.dp, 100.dp),
+                                modifier = Modifier.padding(8.dp).heightIn(min = 100.dp).fillMaxWidth(),
                                 onClick = { selected = u; error = null },
                             ) {
                                 Column(

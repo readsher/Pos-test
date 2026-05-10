@@ -16,12 +16,32 @@ session's git instructions; the user wants commits + pushes on this branch).
 
 - Kotlin 2.0.21, AGP 8.5.2, Gradle 8.10.2 (wrapper committed)
 - Min SDK 24, target SDK 34, JDK 17
-- Jetpack Compose + Material 3
+- Jetpack Compose + Material 3 (+ `material3-window-size-class` for responsive)
 - Hilt (KAPT) + Room (KSP) + Navigation Compose + Coroutines/Flow
 - ZXing core for QR. **No** other 3rd-party libs; Star and BT printing both
   use raw ESC/POS over TCP / Bluetooth SPP — no SDK dependency.
 
 Plugins / versions live in `gradle/libs.versions.toml`.
+
+## Theme & responsiveness (post-MVP)
+
+- Theme is **Claude-branded**: warm coral (`#C96442` / `#D97757`) on cream
+  (`#FAF9F5`) for light mode, with a warm dark variant. All colors live in
+  `ui/theme/Theme.kt` — no other hex literals in the codebase. Launcher icon
+  background (`res/values/colors.xml`) matches.
+- Manifest no longer locks `screenOrientation="landscape"`. Activity is
+  `resizeableActivity="true"` and lists `smallestScreenSize|screenLayout|uiMode`
+  in `configChanges` so config changes don't recreate.
+- `ui/common/WindowSize.kt` exposes a `LocalWindowSize` CompositionLocal +
+  `Responsive.{isCompact,isMedium,isExpanded}` helpers. Wired in
+  `MainActivity` via `calculateWindowSizeClass(this)`.
+- Screens that were two-pane (POS, Checkout, Menu admin) now branch on
+  `Responsive.isCompact`: stack vertically on phones, side-by-side on
+  tablets / W1401. POS surfaces a cart `ModalBottomSheet` triggered by an
+  `ExtendedFloatingActionButton` when compact.
+- Grids (POS catalog, Tables, Login users) all use `GridCells.Adaptive` with
+  fixed-size cards swapped for `heightIn(min = …).fillMaxWidth()`. Settings
+  chip rows use `FlowRow` so they wrap instead of overflowing.
 
 ## Sandbox build limitation
 
